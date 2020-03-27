@@ -7,5 +7,8 @@ from cpu import *
 
 cpu = CPU()
 
-cpu.load()
+cpu.load(
+    'c:/Users/kyleh/Desktop/Repos/Computer-Architecture/ls8/examples/'
+    'print8.ls8'
+    )
 cpu.run()
