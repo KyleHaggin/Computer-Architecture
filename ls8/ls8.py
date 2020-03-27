@@ -9,6 +9,6 @@ cpu = CPU()
 
 cpu.load(
     'c:/Users/kyleh/Desktop/Repos/Computer-Architecture/ls8/examples/'
-    'stack.ls8'
+    'call.ls8'
     )
 cpu.run()
