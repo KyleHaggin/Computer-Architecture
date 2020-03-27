@@ -11,6 +11,8 @@ class CPU:
         self.ram = [None] * 256
 
         self.register = [0]*8
+
+        self.sp = 7
         pass
 
     def load(self, filepath):
@@ -126,6 +128,7 @@ class CPU:
                 # Increment pc by 1
                 pc += 1
 
+            # Register multiply
             elif self.ram[pc] is 0b10100010:
                 # Increment pc by 1
                 pc += 1
@@ -142,6 +145,35 @@ class CPU:
 
                 # Run alu multiply
                 self.alu('MULT', reg_1, reg_2)
+
+            # Stack Push
+            elif self.ram[pc] is 0b01000101:
+                # Increment pc by 1
+                pc += 1
+
+                # Save value of register at value in pc
+                val = self.register[self.ram[pc]]
+                # Decrement the SP
+                self.register[self.sp] -= 1
+                # Copy value in the register to the address pointed to by SP
+                self.ram[self.register[self.sp]] = val
+                # Increment pc by 1
+                pc += 1
+
+            # Stack Pop
+            elif self.ram[pc] is 0b01000110:
+                # Increment pc by 1
+                pc += 1
+
+                # Save the value of the memory to the register
+                val = self.ram[self.register[self.sp]]
+                # Copy the value from the address pointed
+                # to by sp to the register
+                self.register[self.ram[pc]] = val
+                # Increment SP
+                self.register[self.sp] += 1
+                # Increment pc by 1
+                pc += 1
 
             else:
                 print(f'Unknown instruction: {self.ram[pc]}')
