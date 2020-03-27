@@ -57,8 +57,11 @@ class CPU:
         """ALU operations."""
 
         if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
-        # elif op == "SUB": etc
+            self.register[reg_a] += self.register[reg_b]
+        # elif op == "SUB":
+
+        elif op == 'MULT':
+            self.register[reg_a] *= self.register[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -78,7 +81,7 @@ class CPU:
         ), end='')
 
         for i in range(8):
-            print(" %02X" % self.reg[i], end='')
+            print(" %02X" % self.register[i], end='')
 
         print()
 
@@ -108,6 +111,7 @@ class CPU:
                 # Increment pc by 1
                 pc += 1
 
+            # Register Print
             elif self.ram[pc] is 0b10000010:
                 # Increment pc by 1
                 pc += 1
@@ -121,6 +125,23 @@ class CPU:
                 self.register[reg] = self.ram[pc]
                 # Increment pc by 1
                 pc += 1
+
+            elif self.ram[pc] is 0b10100010:
+                # Increment pc by 1
+                pc += 1
+
+                # Save index of register 1
+                reg_1 = self.ram[pc]
+                # Increment pc by 1
+                pc += 1
+
+                # Save index of register 2
+                reg_2 = self.ram[pc]
+                # Increment pc by 1
+                pc += 1
+
+                # Run alu multiply
+                self.alu('MULT', reg_1, reg_2)
 
             else:
                 print(f'Unknown instruction: {self.ram[pc]}')

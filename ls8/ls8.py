@@ -9,6 +9,6 @@ cpu = CPU()
 
 cpu.load(
     'c:/Users/kyleh/Desktop/Repos/Computer-Architecture/ls8/examples/'
-    'print8.ls8'
+    'mult.ls8'
     )
 cpu.run()
