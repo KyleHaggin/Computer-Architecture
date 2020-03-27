@@ -8,6 +8,9 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
+        self.ram = [None] * 256
+
+        self.register = [0]*8
         pass
 
     def load(self):
@@ -62,4 +65,45 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
+        pc = 0
+        running = True
+        while running is True:
+
+            # Breakout condition
+            if self.ram[pc] is 0b00000001:
+                # Increment pc by 1
+                pc += 1
+
+                # Breakout condition
+                running = False
+
+            # Resister Print
+            elif self.ram[pc] is 0b01000111:
+                # Increment pc by 1
+                pc += 1
+
+                # Set register index
+                reg = self.ram[pc]
+                # Print the register
+                print(self.register[reg])
+                # Increment pc by 1
+                pc += 1
+
+            elif self.ram[pc] is 0b10000010:
+                # Increment pc by 1
+                pc += 1
+
+                # Set register index
+                reg = self.ram[pc]
+                # increment pc by 1
+                pc += 1
+
+                # Save value to register
+                self.register[reg] = self.ram[pc]
+                # Increment pc by 1
+                pc += 1
+
+            else:
+                print(f'Unknown instruction: {self.ram[pc]}')
+                sys.exit(1)
         pass
