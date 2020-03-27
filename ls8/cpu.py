@@ -211,6 +211,9 @@ class CPU:
                 self.register[self.sp] += 1
 
             else:
-                print(f'Unknown instruction: {self.ram[self.pc]}, {bin(self.ram[self.pc])}')
+                print(
+                    f'Unknown instruction: {self.ram[self.pc]}, '
+                    f'{bin(self.ram[self.pc])}'
+                    )
                 sys.exit(1)
         pass
